@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace aspnet_web_api_empty_template.Controllers
 {
+    [ActionFilters.LogActionFilter]
     public class HomeController : ApiController
     {
         // GET: api/Home
