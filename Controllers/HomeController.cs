@@ -11,15 +11,29 @@ namespace aspnet_web_api_empty_template.Controllers
     public class HomeController : ApiController
     {
         // GET: api/Home
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            decimal totSum = 0, count = 0;
+            var urlparams = Request.GetRouteData().Values.TryGetValue("id", out object qString);
+            foreach (var x in qString.ToString().Split(','))
+            {
+                totSum += Convert.ToInt32(x);
+                count++;
+            }
+            return String.Format("Average is : {0}", totSum / count);
         }
 
         // GET: api/Home/5
-        public string Get(int id)
+        public string Get(string input)
         {
-            return "value";
+            decimal totSum = 0, count = 0;
+            var charArray = input.Split(',');
+            foreach (var x in charArray)
+            {
+                totSum += Convert.ToInt32(x);
+                count++;
+            }
+            return String.Format("Average is : {0}", totSum / count);
         }
 
         // POST: api/Home
