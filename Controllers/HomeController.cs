@@ -20,9 +20,9 @@ namespace aspnet_web_api_empty_template.Controllers
         }
 
         // GET: api/Home/5
-        public string Get(int input)
+        public string Get(int id)
         {
-            var charArray = "1,2,3".Split(',');
+            var charArray = id.ToString().Split(',');
             return CalculateAverage(charArray);
         }
 
