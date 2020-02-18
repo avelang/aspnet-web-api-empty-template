@@ -15,14 +15,14 @@ namespace aspnet_web_api_empty_template.Controllers
         public string Get()
         {
             var urlparams = Request.GetRouteData().Values.TryGetValue("id", out object qString);
-            var charArray = qString.ToString().Split(',');
+            var charArray = qString?.ToString().Split(',');
             return CalculateAverage(charArray);
         }
 
         // GET: api/Home/5
-        public string Get(string input)
+        public string Get(int input)
         {
-            var charArray = input.Split(',');
+            var charArray = "1,2,3".Split(',');
             return CalculateAverage(charArray);
         }
 
@@ -42,12 +42,21 @@ namespace aspnet_web_api_empty_template.Controllers
         }
 
         public string CalculateAverage(string[] charArray) {
-            foreach (var x in charArray)
+            try
             {
-                totSum += Convert.ToInt32(x);
-                count++;
+                foreach (var x in charArray)
+                {
+                    totSum += Convert.ToInt32(x);
+                    count++;
+                }
+                return String.Format("Average is : {0}", totSum / count);
             }
-            return String.Format("Average is : {0}", totSum / count);
+            catch (Exception)
+            {
+
+                return String.Format("Input is in incorrect format"); 
+            }
+
         }
     }
 }
