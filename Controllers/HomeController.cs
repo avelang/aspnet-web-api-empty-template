@@ -10,30 +10,20 @@ namespace aspnet_web_api_empty_template.Controllers
     [ActionFilters.LogActionFilter]
     public class HomeController : ApiController
     {
+        decimal totSum = 0, count = 0;
         // GET: api/Home
         public string Get()
         {
-            decimal totSum = 0, count = 0;
             var urlparams = Request.GetRouteData().Values.TryGetValue("id", out object qString);
-            foreach (var x in qString.ToString().Split(','))
-            {
-                totSum += Convert.ToInt32(x);
-                count++;
-            }
-            return String.Format("Average is : {0}", totSum / count);
+            var charArray = qString.ToString().Split(',');
+            return CalculateAverage(charArray);
         }
 
         // GET: api/Home/5
         public string Get(string input)
         {
-            decimal totSum = 0, count = 0;
             var charArray = input.Split(',');
-            foreach (var x in charArray)
-            {
-                totSum += Convert.ToInt32(x);
-                count++;
-            }
-            return String.Format("Average is : {0}", totSum / count);
+            return CalculateAverage(charArray);
         }
 
         // POST: api/Home
@@ -49,6 +39,15 @@ namespace aspnet_web_api_empty_template.Controllers
         // DELETE: api/Home/5
         public void Delete(int id)
         {
+        }
+
+        public string CalculateAverage(string[] charArray) {
+            foreach (var x in charArray)
+            {
+                totSum += Convert.ToInt32(x);
+                count++;
+            }
+            return String.Format("Average is : {0}", totSum / count);
         }
     }
 }
